@@ -14,11 +14,15 @@ const Update = () => {
   const [error, setError] = useState();
 
   let navigate = useNavigate();
-  let params = useParams();
+  const { id } = useParams();
 
   useEffect(() => {
     setLoading(true);
-    axios.get('http://localhost:3000/category/' + params.id)
+    axios.get(`http://localhost:3000/category/${id}`, {
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('token')
+      }
+    })
       .then(res => {
         setHasError(false);
         setLoading(false);
@@ -30,9 +34,9 @@ const Update = () => {
         setLoading(false);
         console.log(err);
         setHasError(true);
-        setError(err.response.statusText)
+        setError(err.response.data.msg)
       })
-  }, [params.id])
+  }, [id])
 
 
   const fileHandler = (e) => {
@@ -47,11 +51,11 @@ const Update = () => {
     formData.append('name', category);
     formData.append('photo', selectedFile);
 
-    axios.put('http://www.localhost:3000/category/'+params.id, formData)
+    axios.put(`http://www.localhost:3000/category/${id}`, formData)
       .then(res => {
         console.log(res);
         setLoading(false);
-        navigate('/category')
+        navigate('/dashboard/category')
       })
       .catch(err => {
         console.log(err);
@@ -87,4 +91,4 @@ const Update = () => {
 };
 
 
-export default Update
+export default Update;

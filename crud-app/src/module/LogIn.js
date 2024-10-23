@@ -24,6 +24,7 @@ const LogIn = () => {
             .then(res => {
                 setLoading(false);
                 localStorage.setItem('token', res.data.token)
+                localStorage.setItem('userName', res.data.userName)
                 setHasError(false)
                 navigate('/dashboard');
             })
@@ -63,4 +64,4 @@ const LogIn = () => {
     )
 }
 
-export default LogIn
+export default LogIn;

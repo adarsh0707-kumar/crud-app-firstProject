@@ -11,11 +11,15 @@ const Detail = () => {
     const [error, setError] = useState();
 
 
-    let params = useParams();
-    console.log(params.id);
+    const { id } = useParams();
+    console.log({ id });
     useEffect(() => {
         setLoading(true);
-        axios.get('http://localhost:3000/category/' + params.id)
+        axios.get(`http://localhost:3000/category/${id}`, {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            }
+        })
             .then(res => {
                 setHasError(false);
                 setLoading(false);
@@ -28,7 +32,7 @@ const Detail = () => {
                 setHasError(true);
                 setError(err.response.statusText)
             })
-    }, [params.id])
+    }, [id])
 
     return (
         <>
@@ -48,4 +52,4 @@ const Detail = () => {
     )
 }
 
-export default Detail
+export default Detail;

@@ -29,11 +29,15 @@ const AddCategory = () => {
         formData.append('name', category);
         formData.append('photo', selectedFile);
 
-        axios.post('http://www.localhost:3000/category', formData)
+        axios.post('http://www.localhost:3000/category', formData, {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            }
+        })
             .then(res => {
                 console.log(res);
                 setLoading(false);
-                navigate('/category')
+                navigate('/dashboard/category')
             })
             .catch(err => {
                 console.log(err);
@@ -68,4 +72,4 @@ const AddCategory = () => {
     );
 };
 
-export default AddCategory
+export default AddCategory;

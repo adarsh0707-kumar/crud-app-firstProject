@@ -29,8 +29,6 @@ const Category = () => {
             const url = `http://localhost:3000/category?id=${id}&imageUrl=${imgLink}`
 
             axios.delete(url)
-
-
                 .then(res => {
                     console.log(res);
                     window.alert("Data Deleted");
@@ -113,4 +111,4 @@ const Row = (props) => {
     )
 }
 
-export default Category
+export default Category;
